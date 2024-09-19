@@ -4,7 +4,7 @@ import SlotMachine from './components/SlotMachine'
 function App() {
   return (
     <>
-      <SlotMachine startCredits={100}/>
+      <SlotMachine startCredits={1}/>
     </>
   )
 }

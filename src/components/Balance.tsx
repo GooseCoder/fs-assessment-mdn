@@ -1,10 +1,10 @@
 interface BalanceProps {
-  credits: number
+  credits: number;
 }
 
 const Balance = ({ credits }: BalanceProps) => {
   return (
-    <p>You have: {credits} credits</p>
-  )
-}
-export default Balance
+    <h2 className=" text-white text-lg font-bold mb-2">Credits: ${credits}</h2>
+  );
+};
+export default Balance;
