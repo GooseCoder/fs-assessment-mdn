@@ -5,8 +5,12 @@ import Balance from "./Balance";
 
 const symbols: Symbol[] = ["♠️", "♥️", "♣️", "♦️", "🃏"];
 
-function SlotMachine() {
-  const [credits, setCredits] = useState<number>(10);
+interface SlotMachineProps {
+  startCredits: number;
+}
+
+function SlotMachine({ startCredits }: SlotMachineProps) {
+  const [credits, setCredits] = useState<number>(startCredits);
   const [slots, setSlots] = useState<Symbol[]>(["", "", ""]);
   const [spinning, setSpinning] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -40,15 +44,22 @@ function SlotMachine() {
     }
   };
 
+  const resetGame = (): void => {
+    setCredits(startCredits);
+    setSlots(["", "", ""]);
+    setMessage("");
+    setSpinning(false);
+  };
+
   return (
     <div>
       <h1>Super Slots</h1>
       <Slots slots={slots} />
-      <Balance credits={credits}/>
+      <Balance credits={credits} />
       <button onClick={spin} disabled={spinning || credits === 0}>
         {spinning ? "Spinning..." : "Play (1 credit)"}
       </button>
-      <button>Play Again!</button>
+      <button onClick={resetGame}>Play Again!</button>
       {message && <p>{message}</p>}
     </div>
   );
