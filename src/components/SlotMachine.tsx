@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Symbol } from "./types";
 import Slots from "./Slots";
 import Balance from "./Balance";
@@ -14,11 +14,17 @@ function SlotMachine({ startCredits }: SlotMachineProps) {
   const [slots, setSlots] = useState<Symbol[]>(["", "", ""]);
   const [spinning, setSpinning] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  
+  useEffect(() => {
+    if (credits === 0 && !spinning) {
+      setMessage("Game over! Press Play again!");
+    }
+  }, [credits, spinning]);
 
   const spin = (): void => {
     if (credits > 0 && !spinning) {
-      setMessage("");
       setSpinning(true);
+      setMessage("");
       setCredits((prevCredits) => prevCredits - 1);
 
       const newSlots: Symbol[] = slots.map(
